@@ -1,0 +1,868 @@
+Resumen 
+El manual técnico describe el funcionamiento del sistema UnilogWF CAM (Central de Mezclas), software utilizado en hospitales para la producción y control de medicamentos, incluyendo la mezcla de medicamentos, nutrición parenteral y dosis estándar. El manual proporciona instrucciones detalladas sobre la configuración del sistema, operaciones diarias como creación de recetas, órdenes de producción, autorización, producción, facturación, gestión de excedentes y control de calidad, además de explicar la interfaz con el ERP (Enterprise Resource Planning) del cliente. 
+
+1 - Configuración 
+1.1 – Parametrización de productos 
+Los productos que se requerirán deben ser configurados antes de la utilización de la CAM 
+Vamos a utilizar el producto AMINOACIDOS 10%/500ML SOLUCION INTRAVENOSA como ejemplo. 
+Los productos inicialmente son enviados desde ERP hacia UnilogWF, por interfaz de producto y algunas informaciones adicionales deben ser llenadas en UnilogWF. 
+
+1.1.1 – Parametrización de dosis del producto 
+Generalmente ERP envía por interfaz a UnilogWF, dos registros de dosis prescripción por producto. 
+Dosis referencia y Dosis alternativa. 
+Acceder en el módulo de configuración de dosis del producto: Configuración -> Producto -> Mantener parámetro dosis 
+Hay que configurar los campos Factor de solución y Concentración final para las dosis referencia y alternativa. 
+En la dosis alternativa también hay que configurar el campo Limite del envase según la unidad de medida. 
+
+1.1.2 – Parametrización de producto – Mezcla estándar 
+Acceder en el módulo de configuración del producto: Configuración -> Producto -> Producto 
+El campo Etiqueta mezcla es para elegir un nombre corto para ser presentado en las etiquetas, reportes y pantallas utilizadas en la CAM.  
+Observación: Caso un producto sea un vehículo, debe acceder al registro del producto y informar el nombre corto. No debe poner el nombre del vehículo en los productos requeridos en este campo.  
+Haga clic en la pestaña “Mezcla” para configurar los demás campos 
+Interface gráfica do usuário, Texto, Aplicativo, Email
+Descrição gerada automaticamente 
+Tipo de cálculo: Es para definir cual calculo el sistema debe utilizar para obtener el volumen final de la mezcla. 
+Dosis/Factor de solución madre – Dosis requerida / Factor de solución madre informado por el usuario en la configuración de dosis; 
+Dosis/Concentración final – Dosis requerida / Concentración final informado por el usuario en la configuración de dosis; 
+Manual – Usuario informa el volumen final de la mezcla en el módulo de creación de orden de producción. El sistema calculará la concentración final del producto. En esta opción el producto no debe tener el campo de Concentración final configurado; 
+Tipo de envase: Es para definir cual tipo de envase el sistema debe añadir automáticamente en la prescripción donde el producto AMINOACIDOS fue requerido. 
+Ninguna – No añadir envase; 
+Jeringa/Volumen final – Añadir una jeringa según el volumen final; 
+Bolsa/Volumen final – Añadir una bolsa según el volumen final; 
+Infusor/Volumen final – Añadir un infusor según el volumen final; 
+Tipo de factura: Es para definir cuál es el tipo de factura cargada por defecto para el producto en el módulo de cobros. 
+Por evento; 
+Total; 
+No cobrar; 
+Vehículo: Elegir un producto como vehículo para que el sistema agregue automáticamente en la prescripción donde el producto AMINOACIDOS es requerido.  
+El sistema calculará las dosis y volumen final del vehículo utilizando esta regla:  
+Dosis producto requerido / Concentración final 
+Diluyente: Elegir un producto como diluyente para que el sistema agregue automáticamente en la prescripción donde el producto AMINOACIDOS es requerido.  
+El sistema calculará las dosis y volumen final del vehículo utilizando esta regla:  
+Dosis producto requerido / Factor de solución madre 
+Dispositivo especifico: Elegir “n” productos como dispositivo para que el sistema agregue automáticamente en la prescripción donde el producto AMINOACIDOS es requerido.  
+El sistema agregará una unidad de estos productos en cada dosis. 
+
+1.1.3 – Parametrización de producto – Nutrición parenteral 
+ERP envía los productos terminados y sus componentes hacia UnilogWF por la interfaz de prescripción. 
+Acceder en el módulo de configuración del producto: Configuración -> Producto -> Producto para configurar los campos Densidad y Osmolaridad de los componentes de la nutrición. 
+
+1.1.4 – Parametrización de producto – Dosis estándar 
+Generalmente la integración con el ERP no envía todos los datos de los productos de dosis estándar a UnilogWF, entonces, hay que llenar algunas informaciones adicionales en UnilogWF.  
+Es necesario acceder en el registro de producto por la empresa Unihealth.  
+El sistema UnilogWF trabaja con el concepto de dos o más empresas en el inicio de sesión del sistema, la empresa que controla los datos maestros se llama Unihealth y las otras representan las unidades organizativas da clínica/hospital, donde tendrá un nombre relacionado a esta clínica/hospital. en el documento nos referiremos a esta empresa como "Empresa Clínica". 
+Vamos a utilizar el producto VANCOMICINA 50 MG JERINGA 10ML como ejemplo. 
+Acceder en el módulo de configuración del producto: Configuración -> Producto -> Producto. 
+Haga clic en la pestaña Configuraciones y marcar las opciones Producto Kit y Mezcla. 
+Interface gráfica do usuário, Texto, Email
+Descrição gerada automaticamente 
+Volver a la empresa ”Empresa Clínica”, acceder en el módulo Mantener producto de cliente y vincular el producto a la empresa.  
+Acceder en el módulo de configuración del producto: Configuración -> Producto -> Producto. 
+Haga clic en la pestaña Fabricante y haga el registro de la empresa Unihealth como fabricante, la marca definir como “No se aplica” y informe la estabilidad del producto terminado. 
+Interface gráfica do usuário, Texto, Aplicativo
+Descrição gerada automaticamente 
+Haga clic en la pestaña Embalaje y informe el código del embalaje de fabricante Unihealth. 
+Tela de computador com texto preto sobre fundo branco
+Descrição gerada automaticamente 
+Haga clic en la pestaña Composición del kit y informe los datos del producto terminado. 
+Interface gráfica do usuário, Texto, Aplicativo
+Descrição gerada automaticamente 
+Informar la cantidad de productos terminados que serán producidas en el campo Cantidad final. 
+Informar los componentes, la cantidad del producto componente para mezcla y caso sea un vehículo, marcar el check Vehículo.  
+En las etiquetas de dosis estándar será presentado el nombre del producto vehículo que fue informado.
+
+1.2 – Parámetro de envase 
+Acceder en el módulo de configuración del producto: Configuración -> Producto -> Parámetro de embalaje – Mezcla. 
+Es para definir cual envase el sistema debe añadir automáticamente en las prescripciones de acuerdo con volumen final del producto requerido. 
+En este módulo son informados los rangos de volumen final y cual producto representa el rango de acuerdo con el tipo de envase (Jeringa/Bolsa/Infusor) 
+Interface gráfica do usuário, Texto, Aplicativo, Email
+Descrição gerada automaticamente 
+Observaciones 
+En la carga automática, caso el sistema no encontré un producto según el volumen final y configuración de tipo de envase informado, el sistema buscará un producto en los rangos de los otros tipos de envase en el orden: 
+Jeringa / Bolsa / Infusor 
+Bolsa / Jeringa / Infusor 
+Infusor / Jeringa / Bolsa 
+Lo ideal es cargar los productos según al tipo de envase del rango, si es del tipo bolsa, informar un producto bolsa. 
+Si en la elaboración de la mezcla necesita colocar los medicamentos dentro de una bolsa de Cloruro y utilizarla como envase, no configure el producto Cloruro en los rangos. El producto requerido que tenga este comportamiento debe tener como vehículo un Cloruro y en el parámetro tipo de envase dejar la opción “Ninguno” en sus configuraciones. 
+
+1.3 – Parámetro de cobro por defecto 
+Acceder en el módulo de parámetro de cobro por defecto: Configuración -> Producto -> Parámetro de cobro por defecto – Mezcla. 
+Este módulo es para configurar los productos que deben ser cargados automáticamente a la cuenta del paciente en el módulo de Cobros por la línea de producción. 
+Interface gráfica do usuário, Texto, Aplicativo
+Descrição gerada automaticamente 
+Debe elegir la línea de producción, informar el producto y su cantidad. 
+
+1.4 – Parámetro de tipo de factura por producto 
+Acceder en el módulo de parámetro de cobro por defecto: Configuración -> Producto -> Producto. Haga clic en la pestaña “Mezcla”. 
+Es para definir cuál es el tipo de factura cargada por defecto para el producto en el módulo de cobros. 
+Opciones: 
+Por evento: Cantidad de viales utilizado en la dosis * Cantidad de dosis; 
+Total: Cantidad de viales utilizado; 
+No cobrar; 
+
+1.5 – Permisos de usuario 
+Acceder en el módulo de configuraciones de grupo de usuario: Configuración -> Usuario -> Grupo de usuario. Haga clic en la pestaña “Mezcla”. 
+Roles: 
+Uma imagem contendo Interface gráfica do usuário
+Descrição gerada automaticamente 
+Acción permitida:  
+- Crear / editar prescripciones de contingencia; 
+- Crear/ editar órdenes de producción de tipo mezcla; 
+- Impresión de etiquetas; 
+- Generar reportes; 
+- Producir una orden de tipo mezcla; 
+Acción permitida:  
+- Autorizar/ rechazar órdenes de producción de tipo mezcla; 
+- Cualificación de una orden de producción; 
+- Impresión de etiquetas; 
+- Generar reportes; 
+Acción permitida:  
+- Impresión de etiquetas; 
+- Generar reportes; 
+Acción permitida:  
+- Impresión de etiquetas; 
+- Generar reportes; 
+Ejemplos de los bloqueos 
+Producir, crear o editar una orden si no tiene permiso de químico farmacéutico: 
+Uma imagem contendo Interface gráfica do usuário
+Descrição gerada automaticamente 
+Calificar o autorizar una orden si no tiene permiso de control de calidad 
+Interface gráfica do usuário
+Descrição gerada automaticamente 
+Permiso: 
+
+Cuando la cantidad real del remanente está fuera de rango de mínimo y máximo el sistema requer autorización del remanente para seguir con el flujo.
+1.6 – Parámetros de almacenamiento en la Calidad de orden de producción 
+Acceder en el módulo de centro de costo: Configuración -> Centro de costo -> Centro de costo. Haga la búsqueda del centro de costo de la CAM, haga clic en editar y después en el botón Configuraciones.  
+Haga clic en la pestaña “Mezcla”. 
+Generar stock del producto final 
+Con este parámetro activo el sistema creará y almacenará el stock del producto final generado por la mezcla. 
+Mover stock del producto final 
+Con este parámetro activo el sistema irá consumir automáticamente el producto final. 
+Este parámetro trabaja en conjunto con el parámetro Generar stock del producto final. 
+Con parámetro deshabilitado 
+El producto final es enviado por interfaz. Ver detalles sobre interfaz. 
+
+1.7 – Parámetros de decimales de las informaciones de la mezcla  
+Acceder en el módulo de centro de costo: Configuración -> Centro de costo -> Centro de costo. Haga la búsqueda del centro de costo de la CAM, haga clic en editar y después en el botón Configuraciones.  
+Haga clic en la pestaña “Mezcla”. 
+El campo  Cantidad de decimales afectará las informaciones de dosis, factor de solución madre, concentración final, volumen final y osmolaridad en las pantallas del modulo de mezcla, archivo de exportación Excel, vista preliminar, etiquetas y reporte de espejo de orden de producción. 
+
+1.8 – Configuración de logo de riesco biologico – Eitiqueta oncología  
+El template de la etiqueta de oncología se creó a partir del archivo generado por la aplicación ZebraDesigner 3.  
+1 - En la ZebraDesigner 3 se agrega el logo de riesco biologico y se configura la posición y tamaño en la etiqueta.  
+2 – Configurar la impresora para generar un archivo con el lenguaje EPL cuando solicitar una impresión.  
+3 – Utilizar el archivo generado y agregar las otras informaciónes de la etiqueta.  
+Fuente de referencia:  
+http://zebramaster.blogspot.com/2014/08/como-carregar-uma-logomarca-na.html 
+
+2 - Operación 
+2.1 – Prescripción 
+2.1.1 – Prescripción por interfaz 
+Las prescripciones son enviadas desde ERP hacia UnilogWF por la interfaz de prescripción. La interfaz evalúa la prescripción y envía para CAM caso cumpla los requisitos. 
+Requisitos (parámetros) que el producto o la prescripción deben tener: Estable y Requiere adecuación. 
+Los dos parámetros deben estar llenados en el producto cuando una prescripción estándar. 
+Los dos parámetros de la trama de prescripción cuando la prescripción es una mezcla de los tipos nutrición, mezcla y dilución. 
+
+2.1.2 – Prescripción por contingencia 
+Es necesario habilitar este módulo en UnilogWF. Acceder en el módulo de configuración de centro de costo: Configuración -> Centro de costo -> Centro de costo. Haga la búsqueda del centro de costo y en sus configuraciones habilite la opción “Habilita crear la prescripción” 
+Interface gráfica do usuário, Aplicativo
+Descrição gerada automaticamente 
+Con parámetro activo, el botón para agregar prescripción estará habilitado. 
+Al hacer clic en el botón, se abrirá la pantalla de búsqueda de prescripción del tipo contingencia. 
+Esta ventana solo presentará prescripciones del tipo “Contingencia”. 
+Interface gráfica do usuário, Texto, Aplicativo, Email
+Descrição gerada automaticamente 
+Para crear o editar una prescripción es necesario que el usuario tenga el parámetro de Químico farmacéutico de producción activo. 
+Informe el paciente y los productos de la prescripción. 
+Interface gráfica do usuário, Texto, Aplicativo, Email
+Descrição gerada automaticamente 
+Informar los datos del producto e los componentes.  
+Interface gráfica do usuário, Texto, Aplicativo
+Descrição gerada automaticamente 
+Al elegir una Posología, el sistema cargará la pestaña Dosis con los horarios. Los datos de posología son parametrizados en el centro de costo solicitante. 
+Informar los datos de los componentes. 
+Cuando la prescripción es de la categoría estándar, es necesario que uno de los productos componentes sea lo mismo que el producto principal de la mezcla. 
+Interface gráfica do usuário, Texto, Aplicativo, Email
+Descrição gerada automaticamente 
+Botón 
+“+”: Para añadir productos en la lista de componentes; 
+“-”: Para quitar productos en la lista de componentes; 
+Finalizar: Para cerrar la inclusión de componentes; 
+Interface gráfica do usuário, Texto, Aplicativo, Email
+Descrição gerada automaticamente 
+Botón 
+Añadir: Para añadir un nuevo producto en la prescripción; 
+Finalizar: Para cerrar la inclusión de productos; 
+Word
+Descrição gerada automaticamente com confiança média 
+Grabe los datos y cierra la creación de la prescripción. 
+
+2.1.3 – Servicio de carga de productos y liberación de prescripciones 
+Hay un servicio en la base de datos con ejecución a cada 1 minuto que evalúa todas las prescripciones que van a ser dispensadas por la CAM.  
+Este servicio hace la carga automática de productos en las prescripciones, como vehículo, diluyente, envase y dispositivos específicos que están parametrizados para el producto requerido. Libera las prescripciones, para que sean visibles en búsqueda en el módulo de creación de ordenes de producción. 
+Observación: Para los productos que tienen el parámetro de Tipo de cálculo como Manual, el servicio no hará la carga automática del vehículo, diluyente, envase y dispositivos específicos. Solamente la liberación de la prescripción. 
+
+2.2 – Orden de producción 
+Acceder en el módulo de Orden de producción: Orden de producción -> Orden de producción. 
+
+2.2.1 – Búsqueda de ordenes de producción 
+Interface gráfica do usuário, Aplicativo, Tabela, Excel
+Descrição gerada automaticamente 
+Columna 
+Cantidad: Cantidad de dosis solicitada en la orden de producción; 
+Producido: Cantidad de dosis producidas y aprobadas en la calidad; 
+
+2.2.2 – Creación de ordenes de producción de mezcla 
+Haga clic en el botón Nueva orden y elige la opción Mezcla en el campo Tipo de orden. 
+Haga la búsqueda de prescripciones utilizando los campos de prescripción, paciente, producto, fecha de creación o fecha de las dosis. 
+Interface gráfica do usuário, Texto, Aplicativo, Email
+Descrição gerada automaticamente 
+Botón 
+Crear orden: Crea una orden de producción. 
+Añadir: Añadirá en la orden de producción las prescripciones seleccionadas en la tabla superior. Al incluir la prescripción a la orden, la columna Orden presentará el numero de la orden de producción. 
+Actualizar componentes: Se utiliza cuando informa el volumen final de las prescripciones que tengan producto requerido con el parámetro de tipo de cálculo con la opción Manual o al borrar un componente de las prescripciones y necesita cargarlo nuevamente.  
+Al utilizar este recurso el sistema cargará los componentes parametrizados en el producto requerido. 
+Campos 
+Línea de producción: Define o cambia la línea de producción de las prescripciones seleccionadas. 
+Valor de purga: Define o cambia el valor de purga de las prescripciones seleccionadas.  
+Categoría de medicamento dosis estándar: El volumen de la purga es calculado solamente para el producto vehículo de la prescripción; 
+Categoría de medicamento nutrición parenteral: el volumen de la purga es prorrateado para todos los componentes de la prescripción; 
+Estas informaciones son grabadas en la tabla de prescripción en la base de datos. 
+Tablas 
+En la tabla superior están las prescripciones con las informaciones de los datos del paciente, categoría de medicamento y datos de la solicitud. La columna Borrar es para quitar una prescripción de la orden de producción. 
+En la tabla inferior se presentan los componentes y sus datos de la prescripción seleccionada en la tabla superior. La columna Editar es para cambiar un componente y la columna Borrar es para quitar un componente. 
+Interface gráfica do usuário, Aplicativo, Tabela
+Descrição gerada automaticamente 
+Columna 
+Solución madre: Es el valor parametrizado para el producto en la dosis prescripción. 
+Vol. solución madre: Es el cálculo dosis requerida / Solución madre. Esta información es utilizada para calcular la dosis del componente diluyente.  
+Vol. purga: Para informar una cantidad extra en la administración del medicamento al paciente, cuando necesario. Esta cantidad extra se reparte entre los componentes. 
+Concentración final: Es el valor parametrizado para el producto en la dosis prescripción. Para los productos con el parámetro de tipo calculo con la opción Manual, el sistema calculará el valor de la concentración final después de informado el volumen final. Calculo: Dosis requerida / Volumen final. 
+Peso teórico final: Soma de los componentes (Densidad del componente * Volumen final del componente) 
+Se utiliza para las prescripciones de nutrición parenteral.  
+Osmolaridad: Soma de los componentes (Osmolaridad del componente * Volumen final del componente) / Volumen final de prescripción. 
+Se utiliza para las prescripciones de nutrición parenteral. 
+Almacenamiento: Informaciones del dato maestro del producto requerido. 
+Observación 
+En las columnas en color amarillo las informaciones pueden ser cambiadas, serán guardadas en la tabla de prescripciones en la base de datos y serán presentadas cuando se busca la prescripción nuevamente. 
+Para cambiar las informaciones es necesario seleccionar la prescripción. 
+Al informar o cambiar datos en las prescripciones, como línea de producción o concentración entre otros, estas informaciones son grabadas en la tabla de prescripción y no está en la orden de producción creada. 
+Las prescripciones que van a ser añadidas a una orden de producción deben ser de la misma orden de producción. 
+Al concluir la creación de la orden, haga clic en el botón Guardar, las reservas de los productos utilizados son generadas en este momento. 
+
+2.2.3 – Editar orden de producción de mezcla 
+Solo es permitido editar prescripciones con el estado en Pendiente de autorización. 
+Al cargar la orden de producción el sistema solo presentará las prescripciones de la orden. 
+Para buscar otras prescripciones debe cambiar el filtro Tipo de pesquisa. 
+El filtro de pesquisa tiene las opciones: 
+Todos: Presenta todas las prescripciones que cumplen a los filtros; 
+Solo prescripciones de la orden; 
+Sin las prescripciones de la orden; 
+
+2.2.4 – Creación de ordenes de producción de dosis estándar 
+Haga clic en el botón Nueva orden y elige la opción Mezcla en el campo Tipo de orden. 
+Campo 
+Kit: Es presentado el listado con todos los productos terminados de dosis entandar.  
+Debe elegir un producto de la lista. El sistema cargará las informaciones del producto en las tablas; 
+Cantidad: Debe informar la cantidad de producción. Esta cantidad debe ser múltiplo de la cantidad final parametrizada en los datos maestro del producto; 
+Tablas 
+En la tabla superior es presentada la composición del kit con los productos y cantidad. 
+En la tabla inferior se presentan el stock, ubicación de almacenamiento y cantidad de cada producto. 
+Al informar la cantidad a producir, haga clic no botón Guardar, para el sistema crear la orden de producción. 
+Observación: Los productos que serán utilizados en la producción deben ser añadidos en la etapa de producción. 
+Ejemplo: Guantes, Gaza y Jeringas. 
+
+2.3 – Autorización de orden de producción 
+En la autorización de ordenes es permitido aprobar o no aprobar una orden.  
+Para realizar la acción las ordenes deben estar con el estado Pendiente de autorización y el usuario debe estar con el role Control de calidad activo (Ver permisos de usuario). 
+
+2.3.1 – Aprobar orden de producción mezcla 
+Debe informar usuario y contraseña. No es obligatorio informar una justificación. 
+Interface gráfica do usuário, Texto, Aplicativo, Email
+Descrição gerada automaticamente 
+Al Aprobar el estado de la orden es cambiado para Pendiente de producción. 
+
+2.3.2 – No aprobar orden de producción mezcla 
+Debe informar usuario y contraseña, informar cuales son las inconsistencias y errores encontradas en la creación de orden de producción. Estas informaciones son obligatorias. 
+Interface gráfica do usuário, Texto, Aplicativo, Email
+Descrição gerada automaticamente 
+Al No aprobar el estado de la orden es cambiado para En corrección. Es necesario editar la orden para ajustar los puntos informados. 
+Haga clic en el icono de Detalles de la corrección para el sistema presentar los detalles. Este icono parpadeará en la pantalla.  
+
+2.3.3 – Autorización de orden de producción dosis estándar 
+Debe informar usuario y contraseña.  
+Interface gráfica do usuário, Aplicativo
+Descrição gerada automaticamente 
+Para no autorizar es necesario cancelar a orden de producción en el menú Cancelar. 
+
+2.4 – Producir orden de producción 
+La producción de la orden es la etapa que hace el alistamiento y lectura de los productos. La orden deba estar con el estado Pendiente de producción. 
+
+2.4.1 – Presentación de los productos y funcionalidades 
+La pantalla presenta todos los productos de la orden, con las informaciones de nombre del producto, si es un adicional, lote, validez, cantidad y la cantidad reservada. 
+Es posible ordenar las columnas por Producto, Adicional, Lote y Validez. 
+El sistema dará prioridad en evaluar para alistamiento los productos remantes. 
+Interface gráfica do usuário, Texto, Aplicativo, Email
+Descrição gerada automaticamente 
+Columna 
+Producto: Nombre del producto; 
+Adicional: Sí para producto añadido que serán utilizados en la producción de toda la orden y No para los demás productos ya informado en la orden; 
+Lote: Lote del producto; 
+Validez: Fecha de validez del producto; 
+Cantidad: Cantidad requerida para la producción de la orden; 
+Observación: Caso fue reservado más de un lote, el producto se presentará en la tabla para cada lote, pero la cantidad se repetirá; 
+Ejemplo: Es necesario 4 unidades de Aminoácido para una orden y fue alistado los stocks del lote A y B 
+Tabela
+Descrição gerada automaticamente 
+Cant. reservada: Cantidad reservada de cada lote del producto; 
+Observación: Cuando el producto es un remanente la unidad de medida será presentada junto con la cantidad reservada. Ejemplo:  470 ML / 40 MG 
+Botón 
+Añadir 
+Inclusión de productos para la producción de la orden. 
+Quitar  
+Solo borra los productos añadidos por el botón Añadir. 
+Borrar reserva 
+Cuando ocurre un error operativo, donde el inventario lógico en el sistema está diferente del inventario físico, esta funcionalidad borra la reserva del ítem seleccionado de acuerdo con la cantidad informada por usuario. 
+Interface gráfica do usuário, Texto, Aplicativo
+Descrição gerada automaticamente 
+Observación: Después de la confirmación es necesario arreglar el inventario del producto, antes de utilizar la función Actualizar reserva. 
+Interface gráfica do usuário, Aplicativo
+Descrição gerada automaticamente 
+Producto sin reserva. 
+Actualizar reserva  
+Al seleccionar un producto que no tiene el total reservado, el sistema genera la reserva de la cantidad pendiente. Si no encontrar inventario, el sistema presentará un mensaje de que no hay inventario; 
+Reemplazar  
+Reemplaza un producto seleccionado. El producto debe tener los parámetros del reemplazo ya informados en los datos maestros. No es permitido reemplazar un producto requerido y adicional. 
+Lista de separación 
+Presenta la ubicación y cantidad de los productos alistados; 
+Lectura  
+Acceso a la función de lecturas de los productos alistados. 
+Etiqueta  
+Acceso a la función de impresión de etiquetas de las mezclas;  
+Leyenda 
+Producto remanente: Los productos remanentes son presentados en azul 
+
+2.4.2 – Lista de separación y registro de usuario de alistamiento 
+Al acceder en la función es presentada una pequeña pantalla para informar la persona responsable del alistamiento de los productos de la orden. 
+Interface gráfica do usuário, Texto, Aplicativo
+Descrição gerada automaticamente 
+El campo de usuario es cargado con las personas que tienen acceso al centro de costo de la CAM.  
+Después de confirmado la información es grabada en la base de datos y el reporte lista de separación es presentado.  
+Uma imagem contendo Interface gráfica do usuário
+Descrição gerada automaticamente 
+En la lista de separación hay un agrupamiento para los productos remanentes.
+
+2.4.3 – Alistamiento de diluyentes y vehículos 
+Los vehículos y diluyente son alistado por medicamento requerido, o sea, en la producción no se puede utilizar los mismos viales de vehículo y diluyente en medicamentos diferentes. 
+Ejemplo 1: En una orden de producción fue solicitado dos prescripciones, una con producto A ya la otra con producto B, que tienen configurado el mismo vehículo en sus datos maestro. Mismo que 1 vial del vehículo puede cumplir con las dosis, es necesario tener alistado 2 viales uno para cada producto de las prescripciones. 
+Ejemplo 2: En una orden de producción fue solicitado dos prescripciones, con los mismos productos, donde 1 vial de vehículo puede cumplir con las dosis. En este caso solamente 1 vial del vehículo es alistado. 
+
+2.4.4 – Lectura 
+Al hacer la lectura del producto, el sistema presentará, en la tabla, los productos y cantidades ya leídas.  
+Las lecturas realizadas son grabadas en la base de datos hasta finalizar la lectura de la orden por completo, es un recurso para que, al salir sin finalizar y regresar en la pantalla, el sistema pueda permitir cargar los productos ya leídos. 
+Al leer un producto sin reserva el sistema presentará un mensaje de producto no encontrado. 
+Es necesario realizar la lectura de todos los productos y cantidades totales para cerrar la etapa de lectura. 
+Los productos remanentes son presentados en azul y su cantidad es presentada también con la unidad de medida que el producto está almacenado. 
+Interface gráfica do usuário, Texto, Aplicativo, Email
+Descrição gerada automaticamente 
+Botón 
+Volver 
+Volver a la pantalla anterior; 
+Limpiar  
+Borrar las lecturas realizadas en la tabla y en la base de datos; 
+Fin  
+Cerrar la lectura. En este momento el estado de orden de producción es cambiado para En producción; 
+
+2.4.5 – Impresión de etiqueta 
+Al final de la etapa de lectura de los productos, se habilita el botón Etiqueta. 
+Interface gráfica do usuário, Texto, Aplicativo, Email
+Descrição gerada automaticamente 
+En la pantalla se presenta los datos por prescripciones de la orden de producción. 
+Botón 
+Preliminar: 
+Se presenta una vista de las informaciones de la etiqueta para una evaluación antes de la impresión. Cada prescripción es presentada en una pestana; 
+Imprimir  
+Imprimir etiquetas. La cantidad de etiquetas impresas es según la cantidad de dosis de cada mezcla; 
+Check 
+Todos: Seleccionar todas las prescripciones para impresión; 
+Testigo: Imprimir solamente una etiqueta de la prescripción para documentación operativa. 
+Cuando se accede esta pantalla por el módulo de Producción, se desactivará este check. 
+Para utilizar este recurso debe acceder por el menú Imprimir. 
+En las impresiones de etiquetas Testigos hay una identificación en la etiqueta. Esta identificación es la palabra Testigo. 
+
+2.5 – Cobros de la orden de producción 
+En este módulo el usuario informa los productos que se cobrarán a los pacientes de la orden de producción. 
+Acceder en el módulo de Cobros: Orden de producción -> Orden de producción.  Haga clic en la columna Cobro. 
+
+2.5.1 – Presentación de las informaciones y funcionalidades 
+Interface gráfica do usuário, Texto, Aplicativo, Tabela, Excel
+Descrição gerada automaticamente 
+Columna 
+Episodio: Identificación del paciente; 
+Paciente: Nombre del paciente; 
+Medicamento: Nombre del producto requerido; 
+Dosis / Posología: Dosis y posología del producto requerido, cuando la línea de producción de la orden es Nutrición parenteral la posología no será presentada; 
+Código: Código del producto; 
+Producto: Producto a cobrar; 
+Cantidad: Cantidad a cobrar, es un campo modificable; 
+Tipo factura: Los tipos Por evento, Total y No cobrar afectan la cantidad a cobrar del producto requerido. Los tipos Unidad mínima y Producto final afectan el valor de la mezcla: 
+Por evento: Cantidad de viales del producto requerido utilizado en la dosis * Cantidad de dosis; 
+Total: Cantidad de viales del producto requerido utilizado; 
+No cobrar: No es cobrado el producto requerido; 
+Unidad mínima: Cantidad de las dosis utilizadas de todos los componentes –  
+Suma componentes (Cant. dosis * (Valor Producto / Limite viales)) 
+Producto final: Valor del producto requerido * Cantidad de dosis; 
+Valor mezcla: Suma de los valores unitarios de los componentes de la mezcla; 
+Costo: Valor de costo de cada prescripción referente al valor informado en el campo Costo adicional; 
+Valor total: Suma de los campos Valor mezcla y Costo; 
+Las colunas Episodio, Medicamento y Dosis / Posología se repetirá para todas los componentes de la prescripción; 
+Botón 
+Agregar producto 
+Agregar producto a la cuenta del paciente. Es necesario seleccionar cuales pacientes desea agregar el producto. 
+Al agregar el producto el sistema no evaluará se hay inventario, pero es necesario que el producto ya haya entrado en stock. 
+Tela de computador com texto preto sobre fundo branco
+Descrição gerada automaticamente 
+Devolución agregada 
+Quita solamente los productos agregados 
+Analizar cobro  
+Presentará los productos del alistamiento que no haya sido totalmente cobrados y el sistema informa cuanto más es necesario cobrar. 
+Interface gráfica do usuário, Texto, Aplicativo, Email
+Descrição gerada automaticamente 
+Aprovechamiento 
+Presentará un reporte con las informaciones de productos de aprovechamiento.  
+Aprovechamiento son productos o cantidad del producto que no fue alistada, pero fue informada a cobrar. 
+Aprovechamiento = Cantidad del producto alistado - cantidad a cobrar 
+Interface gráfica do usuário, Texto, Aplicativo
+Descrição gerada automaticamente 
+Actualizar valor 
+Actualiza los valores unitarios de los componentes de las mezclas. 
+Finalizar  
+Se cerrar la etapa de cobros, graba en la base de datos el usuario y momento de finalización.  
+No se permite hacer cambios después de finalizado, solo es posible visualización. 
+
+2.5.2 – Costo adicional 
+Al informar el valor de costo adicional, automáticamente el sistema dividirá la cantidad de costo por la cantidad de prescripción que compone la orden de compra. 
+
+2.6 – Remanentes de la orden de producción 
+En esta etapa el usuario informa la cantidad restante de los productos requeridos. 
+Acceder en el módulo de Remanentes: Orden de producción -> Orden de producción.  Haga clic en la columna Remantes. 
+
+2.6.1 – Presentación de las informaciones y funcionalidades 
+Son cargados en la pantalla los productos requeridos de la orden de producción que están con sobra. 
+Los datos informados en la tabla son grabados en la base de datos automáticamente. 
+Columna 
+Producto: Nombre del producto; 
+Cantidad ingresado: Cantidad en la unidad de medida del producto que fue solicitada en todas las prescripciones de la orden de producción; 
+Cantidad usado: Cantidad en la unidad de medida del producto que fue usado en la producción; 
+Remanente teórico: Sustracción entre Cantidad ingresado y Cantidad usado; 
+Cantidad mínima: Cantidad mínima del remanente real dentro de la normalidad. Lo rango es de 10%; 
+Cantidad máxima: Cantidad máxima del remanente real dentro de la normalidad. Lo rango es de 10%, 
+si la cantidad máxima excede la cantidad ingresada, el sistema cambia la cantidad máxima igual a la cantidad ingresada; 
+Cantidad real: Campo modificable donde el usuario informa la cantidad real del producto remanente. 
+En caso de que el usuario ingrese la cantidad real fuera del rango mínimo y máximo recibirá una alerta señalando como abajo: 
+Debe autorizar el remanente, informando el usuario responsable, contraseña  y una nota; 
+Unidad: Unidad de medida del producto; 
+Lote: Presenta el lote del producto de la orden de producción que será utilizado para crear el stock del remanente. 
+Caso en la orden de producción fue utilizado solo un lote, el sistema cargará en la table el lote. Caso fue utilizado más de un lote del mismo producto en la orden de producción, el sistema presenta un campo modificable para usuario informar el lote que será el producto remanente. 
+Al finalizar la orden en la etapa de calidad, el sistema creará el stock remanente con el lote seleccionado más el numero de la orden de producción.  
+Ejemplo: 16PL9513-614; 
+Validez: El sistema utiliza el parámetro de estabilidad del fabricante del producto para calcular a nueva fecha de validez.  
+Es un campo modificable. 
+Caso el producto no tiene la información de estabilidad, el sistema no calculará la nueva fecha y quedará vacío y sin permiso para edición, es necesario volver a dato maestro del producto y informar la estabilidad; 
+Haga clic en la imagen para volver a la fecha de validez calculada por la estabilidad del producto; 
+Haga clic en la imagen para autorizar informando el usuario responsable, contraseña y una nota sobre el producto remanente y sistema presentará una pantalla de autorización de remantes; 
+Botón 
+Validar 
+Esta función hace la evaluación de los datos informados y caso tenga alguna información pendiente el registro es presentando en rojo. 
+Observación 
+Los stocks de remanentes solo serán creados después de la finalización de la orden de producción. 
+
+2.7 – Control de remanentes 
+Es un módulo de ajuste de stock de los productos remanentes. 
+Acceder en el módulo de Control de Remanentes: Orden de producción -> Orden de producción.  Haga clic en botón Control de Remantes. 
+
+2.7.1 – Búsqueda de productos remanentes 
+Al acceder en la pantalla se presenta una función de búsqueda.  
+En la tabla se presentan informaciones del stock remanente. Los productos caducados son presentados en rojo. 
+Interface gráfica do usuário, Aplicativo
+Descrição gerada automaticamente 
+Para hacer alguno ajuste, haga clic en la imagen de edición, es necesario informar usuario, contraseña y tener el perfil de farmacéutico activo. 
+Interface gráfica do usuário, Texto, Aplicativo, Word
+Descrição gerada automaticamente 
+
+2.7.2 – Presentación de las informaciones y funcionalidades 
+En la edición de remanentes es posible cambiar la fecha de validez, añadir cantidad o realizar pérdidas. 
+Campo 
+Tipo de ajuste 
+Avería de producto – Cuando ha pérdida de parte del producto, la cantidad informada se restará a la cantidad actual. Ejemplo: 450 ml (Cant. actual) - 150 ml (Cant. de pérdida) = 300 ml; 
+Caducidad de producto – Cuando el remanente ha pasado la fecha de validez, está opción realiza la pérdida en la cantidad total del remanente; 
+Entrada de mercancía – Cuando es necesario ingresar nuevas cantidades al remanente, la cantidad informada se sumará a la cantidad actual;  
+Mantenimiento de lote / Validez – Cuando el cambio es solo de fecha de lote / validez; 
+Lote 
+Lote del producto y puede ser modificable según la opción de tipo de ajuste; 
+Validez 
+Fecha de validez del producto y puede ser modificable según la opción de tipo de ajuste; 
+Cantidad 
+Campo para usuario informar la cantidad del ajuste; 
+Justificativa 
+Campo obligatorio, debe hacer una nota sobre el ajuste; 
+Cantidad final después de la confirmación 
+Esto campo presenta el inventario del ajuste antes de la confirmación; 
+Interface gráfica do usuário, Texto, Aplicativo, Email
+Descrição gerada automaticamente 
+
+2.8 – Calidad de la orden de producción 
+En este módulo el usuario registra la etapa de calidad de las dosis producidas. 
+Acceder en el módulo de Calidad: Orden de producción -> Orden de producción.  Haga clic en la columna Calidad. 
+
+2.8.1 – Presentación de las informaciones y funcionalidades - Mezcla 
+La pantalla presenta los productos requeridos por paciente, con las informaciones de la solicitud. 
+Interface gráfica do usuário, Texto, Aplicativo
+Descrição gerada automaticamente 
+Los campos en amarillo son modificables y deben ser utilizados para registrar la cantidad y temas de calidad. 
+Gráfico
+Descrição gerada automaticamente 
+Estas colunas abajo son presentadas cuando la línea de producción de la orden es Nutrición parenteral. 
+Uma imagem contendo Gráfico
+Descrição gerada automaticamente 
+Interface gráfica do usuário, Texto, Aplicativo
+Descrição gerada automaticamente 
+Columna 
+Estado: Identifica que la prescripción tiene reprocesamiento pendiente; 
+Episodio: Identificación del paciente; 
+Paciente: Nombre del paciente 
+Medicamento: Producto requerido; 
+Dosis: Dosis requerida; 
+Cant. dosis: Cantidad de dosis requerida; 
+Solución madre: Valor de la solución utilizado en la creación de la orden; 
+Concentración final: Valor de la concentración utilizada en la creación de la orden; 
+Vol. final: Valor de volumen final de la mezcla; 
+Vehículo: Producto utilizado como vehículo; 
+Envase, Etiqueta, Volumen, Partículas/sedimentación, Protección de luz, Burbujas, Vehículo, Lípidos, Gravimetría, Separación fases, Osmolaridad: Son temas de calidad que son evaluados en esta etapa; 
+Peso teórico: Soma de los componentes (Densidad del componente * Volumen final del componente) 
+Se utiliza para las prescripciones de nutrición parenteral; 
+Peso real: Campo utilizado para informar el peso evaluado;  
+Diferencia peso (%): Sistema evalúa la diferencia entre los datos de peso teórico y real, el rango es de 3%, si esta fuera   de rango, se muestra en rojo; 
+Uma imagem contendo Linha do tempo
+Descrição gerada automaticamente  Gráfico
+Descrição gerada automaticamente com confiança baixa 
+Aprobado: Usuario informa la cantidad aprobada; 
+No aprobado: Usuario informa la cantidad no aprobada; 
+Aprobación final: Utilizado para definir cuando la prescripción está evaluada. Las opciones son Sí/No;  
+Confirmación aprobación: Cantidad aprobada final; 
+Botón 
+Reprocesamiento 
+Acceso a la función de reprocesamiento de dosis. 
+Productos no utilizados 
+Acceso a la función de Productos no utilizados. 
+Cerrar producción  
+Cerra la etapa de calidad y la producción de la orden. En este momento el sistema borra las reservas y hace el consumo de los productos de la orden. 
+Otras funcionalidades 
+Evaluar si la aprobación final de cada prescripción esté en Sí y si fue informada la cantidad Confirmación aprobación; 
+Evaluar si la orden de producción tiene reserva o reprocesamiento pendiente, caso sí, informa usuario para evaluar y realizar la lectura y dispensación del producto; 
+Evaluar si el cobro está cerrado; 
+Evaluar sí fue informado los remanentes y se hay pendencias; 
+Evaluar los registros de productos no utilizados; 
+Si los parámetros de almacenamiento están activos, el sistema realiza el almacenamiento y/o el consumo del producto terminado; 
+Graba el momento de finalización y como responsable el usuario que cerrar la etapa de calidad; 
+Observación 
+Los campos de tipo de errores, Aprobado y No aprobado, son campos para registrar los datos de calidad. 
+En la imagen abajo es presentado un ejemplo de cuando hay un tipo de error, el usuario debe informar:  
+La cantidad de dosis con error en cada tipo de error; 
+La cantidad de dosis buenas en la columna Aprobado; 
+La suma de la cantidad de errores en la columna No aprobado; 
+Informar si es la Aprobación final de esta prescripción; 
+Informar la cantidad aprobada en la coluna Confirmación aprobación considerando la cantidad de las dosis reprocesadas; 
+Interface gráfica do usuário, Tabela
+Descrição gerada automaticamente 
+Si no reprocesar la dosis con errores 
+Debe registrar los errores y confirmar la cantidad aprobada, las dosis no aprobadas y no reprocesadas estarán disponibles en la etapa de creación de orden de producción para ser añadidas en una nueva orden de producción después de la finalización de la orden.
+
+2.8.2 – Presentación de las informaciones y funcionalidades – Dosis entandar 
+La pantalla presenta el producto terminado y la cantidad solicitada. 
+Interface gráfica do usuário, Aplicativo
+Descrição gerada automaticamente 
+Calidad 
+Etiqueta, Ausencia de derrames, Protección de luz, Partículas/sedimentación, Volumen, Código de colores, Vehículo: Son temas de calidad que son evaluados en esta etapa 
+Cantidades 
+Aprobado: Usuario informa la cantidad aprobada; 
+No aprobado: Usuario informa la cantidad no aprobada; 
+Aprobación final: Utilizado para definir cuando la producción está evaluada. Las opciones son Sí/No;  
+Confirmación aprobación: Cantidad aprobada final; 
+Botón 
+Reprocesamiento 
+Acceso a la función de reprocesamiento de dosis. 
+Cerrar producción  
+Cerra la etapa de calidad y la producción de la orden. En este momento el sistema borra las reservas y hace el consumo de los productos de la orden. 
+Otras funcionalidades 
+Evaluar si la aprobación final está en Sí y si fue informada la cantidad Confirmación aprobación; 
+Evaluar si la orden de producción tiene reserva o reprocesamiento pendiente, caso sí, informa usuario para evaluar y realizar la lectura y dispensación del producto; 
+Graba el momento de finalización y como responsable el usuario que cerrar la etapa de calidad; 
+
+2.8.3 – Reprocesamiento 
+Si necesario producir de nuevo algunas dosis, se utiliza esta función para añadir productos. 
+Solo permite reprocesar prescripciones que están con la opción No en la columna Aprobación final. 
+Seleccione la prescripción que desea reprocesar. Añadir los productos para alistamiento y hacer la lectura y dispensación. 
+Interface gráfica do usuário, Texto, Aplicativo, Email
+Descrição gerada automaticamente 
+Tabla 
+En la tabla superior es presentado los productos añadidos para la nueva producción.  
+La columna Validado presenta que el producto ya fue dispensado. 
+En la tabla inferior es presentado los productos leídos y listo para dispensar. 
+Botón 
+Añadir 
+Añadir producto para la reprocesamiento. Genera la reserva del producto; 
+Quitar 
+Quitar un producto añadido. 
+Limpiar 
+Borrar las lecturas realizadas en la tabla y en la base de datos; 
+Finalizar 
+Realiza la dispensación del producto, borra las reservas y hace el consumo. Estos consumos no son a paciente y sí a centro de costo; 
+Etiqueta  
+Acceso a la función de impresión de etiquetas de las mezclas;  
+Lista de separación 
+Presenta la ubicación y cantidad de los productos alistados; 
+Cuando el rol de usuario no permite acceder al módulo de calidad, pero necesita hacer el alistamiento del reprocesamiento, se utiliza el menú Reprocesamiento. 
+Por este menú no es permitido añadir y quitar productos, solo realizar la dispensación de los productos ya añadidos. 
+Se presentan todos los productos añadidos y no más separado por prescripción. 
+Este recurso puede ser utilizado en la necesidad del usuario solo añadir los productos necesario para reprocesamiento y después otro usuario hacer el alistamiento, validación y lecturas. 
+
+2.8.3 – Productos no utilizados - Mezcla 
+Si hay productos sin usar, se utiliza esta función para añadir estos productos y devolverlos a stock.  
+Para iniciar el proceso el usuario deberá identificar el producto no utilizado mediante la lectura de su etiqueta. Los productos serán registrados en la base de datos. 
+Interface gráfica do usuário, Texto, Aplicativo, Email
+Descrição gerada automaticamente 
+El sistema solo permite añadir productos que están en la orden de producción. 
+Al cerrar la etapa de calidad el sistema no irá hacer el consumo de estos productos informados, solamente borrar la reserva y ellos estarán disponibles en stock. 
+ 
+2.8.4 – Almacenamiento de los productos terminados - Mezcla 
+Después de finalizada la etapa de calidad y con parámetro Generar stock del producto final activo, la orden queda con estado Pendiente de almacenamiento, es creado el stock del producto y almacenado en la ubicación En proceso del centro de costo de la CAM. 
+La cantidad sigue la cantidad de confirmación de aprobación de la etapa de calidad. 
+Interface gráfica do usuário, Texto, Aplicativo
+Descrição gerada automaticamente 
+El lote del producto es el numero de la orden de producción. La fecha de validez es la fecha de producción más el valor de estabilidad del producto, si el producto no tiene la información de estabilidad el sistema utiliza la menor fecha de validez de los componentes de la prescripción. 
+Debe almacenar el producto a una ubicación, haga clic en el menú Almacenar 
+Elige donde almacenar el producto. Después de almacenado los productos, el estado de la orden es Almacenado. 
+Interface gráfica do usuário, Texto, Aplicativo
+Descrição gerada automaticamente 
+
+2.8.5 – Almacenamiento de los productos terminados – Dosis estándar 
+Después de finalizada la etapa de calidad, la orden queda con estado Pendiente de almacenamiento, es creado el stock del producto y almacenado en la ubicación En proceso del centro de costo de la CAM. 
+La cantidad sigue la cantidad de confirmación de aprobación de la etapa de calidad. 
+Interface gráfica do usuário, Aplicativo
+Descrição gerada automaticamente 
+El lote del producto es la unión de la palabra “UNIKIT” con el numero de la orden de producción. Ejemplo: UNIKIT621. La fecha de validez es la fecha de producción más el valor de estabilidad del producto, es obligatorio tener la información de estabilidad para finalizar la etapa de Calidad. 
+Debe almacenar el producto a una ubicación, haga clic en el menú Almacenar 
+Interface gráfica do usuário, Texto, Aplicativo
+Descrição gerada automaticamente 
+Elige donde almacenar el producto. Después de los productos almacenados, el estado de la orden es Almacenado. 
+Interface gráfica do usuário, Texto, Aplicativo
+Descrição gerada automaticamente 
+
+2.8.6 – Consumo de los productos terminados - Mezcla 
+Después de finalizada la etapa de calidad y con los parámetros Generar stock del producto final y Mover stock del producto final activos, la orden queda con estado Terminado, es creado y consumido el stock del producto en centro de costo de la CAM. 
+
+2.9 – Reporte 
+2.9.1 – Orden producción impresa – Oncología 
+Tela de computador com texto preto sobre fundo branco
+Descrição gerada automaticamente 
+Dato 
+Dosis: Dosis requerida por el medico; 
+Orden admin.: Campo utilizado para QF informar manualmente la orden de administración de las prescripciones; 
+Volumen: Cantidad calculada del vehículo; 
+Via: Abreviación de la vía de administración; 
+Concent.: Valor de la concentración final del producto requerido; 
+Volumen final: Volumen final de la mezcla; 
+Condición de almacenamiento: Informaciones de almacenamiento del producto requerido; 
+
+2.9.2 – Orden producción impresa – Nutrición parenteral 
+Interface gráfica do usuário, Texto, Aplicativo, Tabela
+Descrição gerada automaticamente 
+Los campos vacíos son utilizados en el control de la CAM. 
+
+2.9.3 – Orden producción impresa – Unidosis 
+Uma imagem contendo Linha do tempo
+Descrição gerada automaticamente 
+Dato 
+Servicio: Ubicación de internación del paciente; 
+Dosis: Dosis requerida por el medico; 
+Diluyente: Nombre del producto diluente, caso no tenga un diluyente es informado no reporte “No diluir”; 
+Factor madre: Factor de solución madre del producto requerido 
+Volumen solución: Cantidad calculada del diluyente; 
+Cant.: Cantidad de dosis; 
+Concent.: Valor de la concentración final del producto requerido; 
+Volumen final: Volumen final de la mezcla; 
+Condición de almacenamiento: Informaciones de almacenamiento del producto requerido; 
+Lib. etiq. / Etiq. / Insp. Visual / Concep.: Estos campos son utilizados en el control de la CAM; 
+
+2.9.3 – Orden producción impresa – Dosis estándar 
+Interface gráfica do usuário, Aplicativo
+Descrição gerada automaticamente 
+Dato 
+Código: Código del producto; 
+Concentración: Valor de concentración del producto; 
+Lote interno: Lote generado por la producción del producto terminado; 
+Tamaño del lote: Cantidad a producir; 
+Presentación: Presentación del producto; 
+F. de venc.: Fecha de validez del producto generada por la producción; 
+Estabilidad de la mezcla en días: Cantidad de días de la estabilidad del producto terminado; 
+Liberación de etiquetas: Estos campos son utilizados en el control de la CAM; 
+
+2.9.4 – Exportar informaciones de la orden de producción mezcla para Excel 
+Para el sistema presentar el botón Exportar es necesario en que la búsqueda de ordenes tenga ordenes de producción con el tipo Mezcla. 
+Haga clic en el botón Exportar, el sistema presentará una ventana para el usuario informar donde desea grabar el archivo Excel creado. 
+En este archivo esta todas las informaciones de la orden de producción. 
+Interface gráfica do usuário, Aplicativo
+Descrição gerada automaticamente 
+
+2.9.5 – Aprovechamiento de cobros en mezcla 
+Tela de computador com texto preto sobre fundo branco
+Descrição gerada automaticamente 
+Filtro 
+Empresa: La empresa donde está ubicada la CAM; 
+Centro de costo: El centro de costo donde fueron producidas las ordenes de producción; 
+Fecha inicio: Fecha del inicio de la búsqueda; 
+Fecha final: Fecha del fin de la búsqueda; 
+Línea de producción: Elegir cuales son las líneas que desea en la búsqueda. Es un campo de opción múltiple; 
+Responsable: Buscar el responsable por la evaluación de cobros de la orden de producción; 
+Nombre del producto: Informar parte del nombre del producto para el reporte hacer la búsqueda y cargar en el filtro “Productos”; 
+Productos: Elegir cuales son los productos que desea en la búsqueda. Es un campo de opción múltiple; 
+Dato 
+Línea de producción: Línea de producción de la orden de producción; 
+Código genérico: Código genérico del producto; 
+Código embalaje: Código embalaje del producto; 
+Producto: Nombre del producto; 
+Cantidad: Cantidad de aprovechamiento del producto; 
+Fecha de producción: Fecha de producción de la orden de producción; 
+Orden de producción: Numero de la orden de producción; 
+Responsable: Responsable por la orden de producción; 
+Observación: Solamente son presentadas ordenes de producción cerradas. 
+
+2.9.6 – Mezclas producidas 
+Texto
+Descrição gerada automaticamente com confiança baixa 
+Filtro 
+Empresa: La empresa donde está ubicada la CAM; 
+Centro de costo: El centro de costo donde fueron producidas las ordenes de producción; 
+Fecha inicio: Fecha del inicio de la búsqueda; 
+Fecha final: Fecha del fin de la búsqueda; 
+Línea de producción: Elegir cuales son las líneas que desea en la búsqueda. Es un campo de opción múltiple; 
+Dato 
+Línea de producción: Línea de producción de la orden de producción; 
+Cantidad: Cantidad de dosis producidas de la orden de producción; 
+Fecha de producción: Fecha de producción de la orden de producción; 
+Orden de producción: Numero de la orden de producción; 
+Responsable: Responsable por la orden de producción; 
+Total: Suma de la cantidad producida en el periodo pesquisado; 
+Observación: Solamente son presentadas ordenes de producción cerradas. 
+
+2.9.7 – Mezclas control de calidad 
+Interface gráfica do usuário, Aplicativo
+Descrição gerada automaticamente 
+Filtro 
+Empresa: La empresa donde está ubicada la CAM; 
+Centro de costo: El centro de costo donde fueron producidas las ordenes de producción; 
+Fecha inicio: Fecha del inicio de la búsqueda; 
+Fecha final: Fecha del fin de la búsqueda; 
+Responsable: Buscar el responsable de la evaluación de calidad de la orden de producción; 
+Paciente: Buscar ordenes de un paciente; 
+Nombre del producto: Informar parte del nombre del producto para el reporte hacer la búsqueda y cargar en el filtro “Productos”; 
+Productos: Elegir cuales son los productos que desea en la búsqueda. Es un campo de opción múltiple; 
+Línea de producción: Elegir cuales son las líneas que desea en la búsqueda. Es un campo de opción múltiple; 
+Dato 
+Línea de producción: Línea de producción de la orden de producción; 
+Código genérico: Código genérico del producto; 
+Código embalaje: Código embalaje del producto; 
+Producto: Nombre del producto; 
+Paciente: Nombre del paciente; 
+Orden de producción: Numero de la orden de producción; 
+Responsable: Responsable por la evaluación de calidad de la orden de producción; 
+Embalaje, Etiqueta, Volumen…: Cantidad de errores de cada tipo por prescripción; 
+Observación: Solamente son presentadas las ordenes cerradas. 
+
+2.9.8 – Pacientes preparados mezcla 
+Interface gráfica do usuário, Tabela
+Descrição gerada automaticamente 
+Filtro 
+Empresa: La empresa donde está ubicada la CAM; 
+Centro de costo: El centro de costo donde fueron producidas las ordenes de producción; 
+Fecha inicio: Fecha del inicio de la búsqueda; 
+Fecha final: Fecha del fin de la búsqueda; 
+Responsable: Buscar el responsable por la orden de producción; 
+Paciente: Buscar ordenes de un paciente; 
+Línea de producción: Elegir cuales son las líneas que desea en la búsqueda. Es un campo de opción múltiple; 
+Dato 
+Línea de producción: Línea de producción de la orden de producción; 
+Episodio: Información del paciente;  
+Paciente: Nombre del paciente; 
+Fecha de producción: Fecha de producción de la orden de producción; 
+Orden de producción: Numero de la orden de producción; 
+Responsable: Responsable por la orden de producción; 
+Observación: Solamente son presentadas ordenes de producción cerradas. 
+
+2.9.9 – Remanentes vencidos 
+Tela de computador com texto preto sobre fundo branco
+Descrição gerada automaticamente 
+Filtro 
+Empresa: La empresa donde está ubicada la CAM; 
+Centro de costo: El centro de costo donde fueron producidas las ordenes de producción; 
+Fecha inicio: Fecha del inicio de la búsqueda; 
+Fecha final: Fecha del fin de la búsqueda; 
+Responsable: Buscar el responsable que generó el producto remanente; 
+Línea de producción: Elegir cuales son las líneas que desea en la búsqueda. Es un campo de opción múltiple; 
+Nombre del producto: Informar parte del nombre del producto para el reporte hacer la búsqueda y cargar en el filtro “Productos”; 
+Productos: Elegir cuales son los productos que desea en la búsqueda. Es un campo de opción múltiple; 
+Dato 
+Línea de producción: Línea de producción de la orden de producción; 
+Código genérico: Código genérico del producto; 
+Código embalaje: Código embalaje del producto; 
+Producto: Nombre del producto; 
+Cantidad: Cantidad en la unidad de medida del producto remanente; 
+Fecha de validez: Fecha de validez del producto remanente 
+Fecha de producción: Fecha de producción de la orden de producción; 
+Orden de producción: Numero de la orden de producción; 
+Responsable: Responsable por generar el producto remanente; 
+Observación: Solamente son presentadas ordenes de producción cerradas. 
+
+2.9.10 – Detalles del remanentes 
+En la pantalla de búsqueda de las OP hay el botón para presentar el reporte Detalles del remanente de las OP seleccionadas. 
+Dato 
+Número orden: identificador de la OP; 
+Fecha orden: Fecha de la creación de la OP; 
+Medicamento: Producto remanente; 
+Cant. ingresado: Cantidad del producto solicitada; 
+Cant. utilizado: Cantidad del producto que debe ser utilizada; 
+Cant. teórico: Cantidad del producto que debe sobrar; 
+Cant. mínimo: Cantidad mínimo del rango; 
+Cant. máximo: Cantidad máximo del rango; 
+Cant. real: Cantidad de sobra del remanente; 
+Lote: Lote del producto de la OP; 
+Validez: Fecha de validez del producto remanente 
+Usuario autorización: Usuario que autorizó un remanente con la cantidad fuera del rango ; 
+Observación: Justificación del remanente estar fuera del rango. 
+Caso sea seleccionado más de una OP, el sistema presentará las informaciones de OP por hoja.
+
+3.0 – Interfaz mezcla 
+Se desarrollaron interfaces específicas para enviar los movimientos al cliente Los Cobos. 
+Al finalizar una orden de producción los servicios de interfaz evalúan los datos para empezar los envíos. 
+
+3.0.1 – Aprovechamiento / Z10 
+Los movimientos de interfaz Movimiento - Unilog -> SAP - Ajuste Mezcla y Moa - Unilog -> SAP - Ajuste Mezcla contingencia envían todos los aprovechamientos de la orden de producción, elije un sto del producto que ya ha entrado en el sto de la empresa. En el movimiento son enviadas las informaciones Lote, Validez, Ubicación para realizar crédito de inventario y Cantidad del aprovechamiento.  
+Al recibir el movimiento, SAP realiza el crédito en el inventario para que después la interfaz de Cargue directo haga el consumo al paciente. 
+
+3.0.2 – Productos no utilizados / Z10 
+Los movimientos de interfaz Movimiento salida - Producto no utilizado – Mezcla y Moa salida - Pros no utilizado-Mezcla contingencia envían todos los productos no utilizados de la orden de producción. En el movimiento son enviadas las informaciones Lote, Validez, Ubicación para realizar crédito de inventario y Cantidad del producto no utilizado.  
+Al recibir el movimiento, SAP realiza el crédito en el inventario. 
+
+3.0.3 – Cargue directo 
+Los movimientos de interfaz Cargue directo - Uní -> SAP - Dispensación Mezcla y Cargue directo-Unilo -> SAP - Mezcla contingencia envían los productos y cantidad cobrada por paciente. 
+Al recibir el movimiento, SAP realiza la carga en la cuenta del paciente. 
+
+3.0.4 – Cambio de estado 
+El movimiento de interfaz Cambio estado - Uní -> SAP - Dispensación Mezcla envía los eventos y cantidad que fueron dispensadas por paciente. 
+Al recibir el movimiento, SAP realiza la confirmación de dispensación del evento. 
+Para las prescripciones de contingencia no se envían movimientos de Cambio de estado. 
+
+3.0.5 – Dosis estándar 
+El movimiento de interfaz Movimiento - Unilog -> SAP - Orden producción, después de almacenada la orden de producción de dosis estándar, envía el producto terminado con la cantidad producida para SAP realizar el crédito en inventario y los productos y cantidad consumidas en la producción para SAP realizar la baja en inventario. 
