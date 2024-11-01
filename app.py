@@ -36,4 +36,5 @@ if prompt and submitted:
         st.write(f'Busca vetorial feita a partir de: {newPrompt}\n')
     with st.expander("Textos extraídos da documentação:"):
         st.write(f'{result}')
-    st.write(f"{llm.invoke(f'Você é um agente da equipe de suporte, e receberá trechos de uma documentação que deve usar para responder a seguinte pergunta em português: {prompt}. {result}')}")
+    with st.spinner('Carregando'):
+        st.write(f"{llm.invoke(f'Você é um agente da equipe de suporte, e receberá trechos de uma documentação que deve usar para responder a seguinte pergunta em português: {prompt}. {result}')}")

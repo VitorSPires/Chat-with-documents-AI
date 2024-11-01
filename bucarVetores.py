@@ -27,7 +27,7 @@ def buscar_texto_similar(texto_consulta, top_k=5):
     return resultados
 
 # Exemplo de busca
-texto_consulta = "biological risk"
+#texto_consulta = "biological risk"
 #resultados_similares = buscar_texto_similar(texto_consulta)
 
 # Exibir os resultados
